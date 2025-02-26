@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список нотаток</title>
+</head>
+<body>
+<h1>Список нотаток</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Назва</th>
+        <th>Контент</th>
+        <th>Дії</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="note : ${notes}">
+        <td th:text="${note.title}">Title</td>
+        <td th:text="${note.content}">Content</td>
+        <td>
+            <a th:href="@{/note/edit(id=${note.id})}">Редагувати</a>
+            <form th:action="@{/note/delete}" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${note.id}" />
+                <input type="submit" value="Видалити" onclick="return confirm('Видалити нотатку?');" />
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p>
+<p>
+    <input type="buttom" value="Додати нотатку" onclick="window.location.href='/note/create';" />
+<!--    <a class="button" th:href="@{/note/create}">Додати нотатку</a>-->
+</p>
+</body>
+</html>
